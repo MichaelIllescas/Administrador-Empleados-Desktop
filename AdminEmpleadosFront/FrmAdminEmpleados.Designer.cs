@@ -46,6 +46,7 @@
             btnModificar = new Button();
             btnBaja = new Button();
             btnCerrar = new Button();
+            checkBox1 = new CheckBox();
             button1 = new Button();
             panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -132,7 +133,7 @@
             // 
             // btnAlta
             // 
-            btnAlta.Location = new Point(3, 47);
+            btnAlta.Location = new Point(3, 3);
             btnAlta.Name = "btnAlta";
             btnAlta.Size = new Size(99, 38);
             btnAlta.TabIndex = 0;
@@ -142,22 +143,26 @@
             // 
             // flowLayoutPanel1
             // 
-            flowLayoutPanel1.Controls.Add(btnBuscar);
+            flowLayoutPanel1.AllowDrop = true;
+            flowLayoutPanel1.BorderStyle = BorderStyle.FixedSingle;
             flowLayoutPanel1.Controls.Add(btnAlta);
+            flowLayoutPanel1.Controls.Add(btnBuscar);
             flowLayoutPanel1.Controls.Add(btnConsultar);
             flowLayoutPanel1.Controls.Add(btnModificar);
             flowLayoutPanel1.Controls.Add(btnBaja);
             flowLayoutPanel1.Controls.Add(btnCerrar);
+            flowLayoutPanel1.Controls.Add(checkBox1);
             flowLayoutPanel1.Controls.Add(button1);
             flowLayoutPanel1.Dock = DockStyle.Left;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(108, 488);
             flowLayoutPanel1.TabIndex = 3;
+            flowLayoutPanel1.TabStop = true;
             // 
             // btnBuscar
             // 
-            btnBuscar.Location = new Point(3, 3);
+            btnBuscar.Location = new Point(3, 47);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(99, 38);
             btnBuscar.TabIndex = 5;
@@ -203,15 +208,28 @@
             btnCerrar.TabIndex = 4;
             btnCerrar.Text = "Salir";
             btnCerrar.UseVisualStyleBackColor = true;
+            btnCerrar.Click += btnCerrar_Click;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(3, 267);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(76, 34);
+            checkBox1.TabIndex = 6;
+            checkBox1.Text = "Mostrar \nAnulados";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // button1
             // 
-            button1.Location = new Point(3, 267);
+            button1.Location = new Point(3, 307);
             button1.Name = "button1";
             button1.Size = new Size(99, 38);
-            button1.TabIndex = 6;
-            button1.Text = "Salir";
+            button1.TabIndex = 7;
+            button1.Text = "Eliminar Anulados";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += btnEliminar_Click;
             // 
             // panel1
             // 
@@ -235,6 +253,7 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)empleadoBindingSource).EndInit();
             flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -259,6 +278,7 @@
         private DataGridViewTextBoxColumn FechaIngreso;
         private DataGridViewTextBoxColumn Salario;
         private DataGridViewTextBoxColumn NombreDepartamento;
+        private CheckBox checkBox1;
         private Button button1;
     }
 }

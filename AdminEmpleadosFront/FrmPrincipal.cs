@@ -19,7 +19,10 @@ namespace AdminEmpleadosFront
 
         private void ShowNewForm(object sender, EventArgs e)
         {
-            //agregar aca la llamada al form de alta
+            FrmEditEmpleados childForm = new FrmEditEmpleados();
+            childForm.MdiParent = this;
+            childForm.modo = EnumModoForm.Alta;
+            childForm.Show();
         }
 
         private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)

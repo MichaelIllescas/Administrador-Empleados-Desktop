@@ -69,6 +69,7 @@ namespace AdminEmpleadosFront
                     MessageBox.Show("Atención: Se encontraron los siguientes errores \n" + mensajeErrores, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
 
+
                 }
 
                 //las validaciones estan bien
@@ -123,12 +124,19 @@ namespace AdminEmpleadosFront
                 mensaje += "\nError en Nombre";
 
             }
+           
+            if(e.Salario<1000)
+            {
+                mensaje += "\nSalario menor a 1000 no admintido";
+
+            }
             if (!String.IsNullOrEmpty(mensaje))
             {
                 return false;
             }
 
             return true;
+
 
         }
 
@@ -197,5 +205,19 @@ namespace AdminEmpleadosFront
             }
         }
 
+        private void txtId_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSalario_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSalario_Validating(object sender, CancelEventArgs e)
+        {
+
+        }
     }
 }

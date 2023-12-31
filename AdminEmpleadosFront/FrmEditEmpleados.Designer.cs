@@ -90,6 +90,7 @@
             txtId.ReadOnly = true;
             txtId.Size = new Size(54, 23);
             txtId.TabIndex = 0;
+            txtId.TextChanged += txtId_TextChanged;
             // 
             // txtNombre
             // 
@@ -176,6 +177,8 @@
             txtSalario.Name = "txtSalario";
             txtSalario.Size = new Size(102, 23);
             txtSalario.TabIndex = 5;
+            txtSalario.ValueChanged += txtSalario_ValueChanged;
+            txtSalario.Validating += txtSalario_Validating;
             // 
             // label7
             // 

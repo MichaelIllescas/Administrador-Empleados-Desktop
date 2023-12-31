@@ -1,11 +1,13 @@
 ﻿using AdminEmpleadosEntidades;
 using AdminEmpleadosNegocio;
+using System.Reflection.Metadata;
 
 namespace AdminEmpleadosFront
 {
     public partial class FrmAdminEmpleados : Form
     {
         List<Empleado> empleadosList = new List<Empleado>();
+        List<Empleado> listaAnular = new List<Empleado>();
 
         public FrmAdminEmpleados()
         {
@@ -16,7 +18,7 @@ namespace AdminEmpleadosFront
         {
             buscarEmpleados();
         }
-        private void buscarEmpleados()
+        private List<Empleado> buscarEmpleados()
         {
             //Obtengo el nombre y DNI ingresado por el usuario
             string textoBuscar = txtBuscar.Text.Trim().ToUpper();
@@ -32,9 +34,17 @@ namespace AdminEmpleadosFront
             }
 
             //Busco la lista de empleados en la capa de negocio, pasandole el parametro ingresado
-            empleadosList = EmpleadosNegocio.Get(parametro);
+            if (checkBox1.Checked)
+            {
+                empleadosList = EmpleadosNegocio.GetTotal(parametro);
+                listaAnular = EmpleadosNegocio.GetAnulados(parametro);
+
+            }
+            else
+                empleadosList = EmpleadosNegocio.Get(parametro);
             //Actualizo la grilla
             refreshGrid();
+            return empleadosList;
         }
 
         private void refreshGrid()
@@ -106,7 +116,7 @@ namespace AdminEmpleadosFront
             if (res == DialogResult.No)
             {
                 return;
-            }           
+            }
 
             try
             {
@@ -119,6 +129,53 @@ namespace AdminEmpleadosFront
 
             }
 
+            buscarEmpleados();
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            empleadosList = buscarEmpleados();
+            DialogResult res = MessageBox.Show("¿Desea Eliminar los Empleados Anulados ?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (res == DialogResult.No)
+            {
+                return;
+            }
+
+            try
+            {
+                DialogResult res2 = MessageBox.Show("¿Conforma Eliminar definitivamente los Empleados Anulados de la Base de Datos?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res2 == DialogResult.No)
+                {
+                    return;
+                }
+                try
+                {
+                    EmpleadosNegocio.EliminarAnulados(listaAnular);
+                    MessageBox.Show("Se Eliminaron correctamente los Empleados Anulados", "Anulación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    checkBox1.Checked = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+            buscarEmpleados();
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
             buscarEmpleados();
         }
     }

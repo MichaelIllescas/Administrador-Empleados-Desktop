@@ -9,6 +9,32 @@ namespace AdminEmpleadosNegocio
         {            
             return EmpleadosDatosEF.Get(e);
         }
+        public static List<Empleado> GetTotal(Empleado e)
+        {
+            return EmpleadosDatosEF.GetTotal(e);
+        }
+        public static List<Empleado> GetAnulados(Empleado e)
+        {
+            return EmpleadosDatosEF.GetAnulados(e);
+        }
+
+        public static bool EliminarAnulados(List<Empleado> e)
+        {
+
+            if (e.Count == 0)
+            {
+                return false;
+            }
+            else 
+            {     
+               EmpleadosDatosEF.Eliminar(e);
+
+               return true; 
+            }
+
+      
+
+        }
 
         public static int Insert(Empleado e)
         {
@@ -24,6 +50,11 @@ namespace AdminEmpleadosNegocio
             {
                 e.FechaIngreso = DateTime.Now;
             }
+            if (e.Salario < 1000)
+            {
+                return 0;  
+            }
+
 
             try
             {
@@ -74,4 +105,13 @@ namespace AdminEmpleadosNegocio
  
         }
     }
+    
 }
+  
+
+
+
+
+
+
+
